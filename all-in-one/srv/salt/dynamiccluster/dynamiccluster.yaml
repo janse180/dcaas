@@ -73,7 +73,7 @@ cluster:
     set_node_command: /usr/bin/qmgr -c "set node {0} {1} {2} {3}"
 
     # the command to get jobs' priorities
-    diagnose_p_command: /usr/maui/bin/diagnose -p
+    diagnose_p_command: /usr/bin/diagnose -p
 
     # the command to show reservations of a node
     showres_command: /usr/bin/showres -n | grep {0}

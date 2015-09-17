@@ -1,9 +1,21 @@
 dynamiccluster.package:
   cmd:
     - run
-    - name: yum localinstall -y https://raw.githubusercontent.com/eResearchSA/citc/master/rpms/dynamiccluster-0.5.0-1.el6.x86_64.rpm
-    - unless: rpm -q dynamiccluster-0.5.0-1.el6.x86_64
-    
+    - name: yum localinstall -y https://github.com/eResearchSA/citc/raw/master/rpms/dynamiccluster-0.5.0-1.el6.noarch.rpm
+    - unless: rpm -q dynamiccluster-0.5.0-1.el6.noarch
+
+dep.packages:
+  pkg.installed:
+    - pkgs:
+      - gcc-c++
+      - python-devel
+      - python-pip
+      
+python-novaclient:
+  pip.installed:
+    - require:
+      - pkg: dep.packages
+
 dynamiccluster.config:
   file:
     - managed
@@ -30,4 +42,12 @@ wn.sh:
     - source: salt://dynamiccluster/wn.sh
     - require:
       - cmd: dynamiccluster.package
- 
+
+dynamiccluster:
+  service.running:
+    - enable: True
+    - require:
+      - cmd: dynamiccluster.packages
+      - pip: python-novaclient
+    - watch:
+      - file: dynamiccluster.config
