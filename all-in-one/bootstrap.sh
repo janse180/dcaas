@@ -1,7 +1,9 @@
 #!/bin/bash
 
+cd /opt
+wget https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/get_git_sub_dir.py -O get_git_sub_dir.py
 yum install -y salt-master git salt-minion
-./get_git_sub_dir.py eresearchsa/citc/all-in-one /opt
+python get_git_sub_dir.py eresearchsa/citc/all-in-one /opt
 rm -rf /srv
 ln -s /opt/all-in-one/srv /srv
 echo -n "runner_dirs: [\"/srv/runner\"]" >> /etc/salt/master
