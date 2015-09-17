@@ -5,6 +5,7 @@ extend:
   torque.packages:
     pkg.installed:
       - pkgs:
+        - torque-client
         - torque-mom
   servername:
     file:

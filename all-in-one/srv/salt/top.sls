@@ -1,7 +1,8 @@
 base:
   '*':
     - ntp
-  'devwn-*':
+    - users
+  'dynamicwn-*':
     - nfs.common
-    - torque.mom
     - mount
+    - torque.mom

@@ -2,7 +2,6 @@ torque.packages:
   pkg.installed:
     - fromrepo: epel
     - pkgs:
-      - torque-server
       - torque-client
       
 munge.key:

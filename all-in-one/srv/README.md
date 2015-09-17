@@ -18,5 +18,15 @@ reactor:
 
 install services
 ```
-salt-call --local state.sls graphite,httpd,nfs.server,ntp,torque.server,maui,users
+salt-call --local state.sls nova,graphite,httpd,nfs.server,ntp,torque.server,maui,users
+```
+
+run bootstrap script
+```
+curl https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/bootstrap.sh | sh -
+```
+
+install dynamic cluster
+```
+salt-call --local state.sls dynamiccluster
 ```
