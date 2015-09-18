@@ -36,6 +36,5 @@ dynamiccluster:
     - enable: True
     - require:
       - cmd: dynamiccluster.package
-      - pip: python-novaclient
     - watch:
       - file: dynamiccluster.config
