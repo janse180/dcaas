@@ -1,6 +1,5 @@
 torque.packages:
   pkg.installed:
-    - fromrepo: epel
     - pkgs:
       - torque-client
       

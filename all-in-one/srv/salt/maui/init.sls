@@ -1,16 +1,19 @@
-emi.repo:
-  cmd:
-    - run
-    - name: yum -y localinstall http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/x86_64/base/emi-release-3.0.0-2.el6.noarch.rpm
-    - unless: test -e /etc/yum.repos.d/emi3-third-party.repo
+emi:
+  pkgrepo.managed:
+    - humanname: EMI 3 third-party
+    - baseurl: http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/$basearch/third-party
+    - gpgcheck: 0
+    - priority: 90
+    - enabled: 0
         
 maui.packages:
   pkg.installed:
+    - fromrepo: emi
     - pkgs:
       - maui-server
       - maui-client
     - require:
-      - cmd: emi.repo
+      - pkgrepo: emi
       
 maui:
   service.running:
