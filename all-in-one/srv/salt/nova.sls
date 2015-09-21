@@ -14,7 +14,9 @@ pip:
       - pkg: compiler.packages
 
 python-novaclient:
-  pip.installed:
+  cmd:
+    - run
+    - name: pip install python-novaclient
+    - unless: pip freeze|grep -q python-novaclient
     - require:
-      - cmd: pip
-      
+      - cmd: pip      
