@@ -20,6 +20,7 @@ userdata_salt.sh:
     - managed
     - name: /etc/dynamiccluster/userdata_salt.sh
     - source: salt://dynamiccluster/userdata_salt.sh
+    - template: jinja
     - require:
       - cmd: dynamiccluster.package
 
@@ -28,6 +29,9 @@ wn.sh:
     - managed
     - name: /etc/dynamiccluster/wn.sh
     - source: salt://dynamiccluster/wn.sh
+    - user: root
+    - group: root
+    - mode: 755
     - require:
       - cmd: dynamiccluster.package
 

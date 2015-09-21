@@ -24,13 +24,9 @@ munge:
 servername:
   file:
     - managed
-    - name: /var/lib/torque/server_name
+    - name: /etc/torque/server_name
     - source: salt://torque/server_name
     - template: jinja
-    - user: root
-    - group: root
-    - mode: 644
-    - makedirs: True
     - require:
       - pkg: torque.packages
       

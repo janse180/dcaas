@@ -99,7 +99,7 @@ cluster:
     #post_remove_node_command: /the/path/some.sh {0} {1}
 
 cloud:
-  os-res:
+  default:
     type: openstack
     reservation:
       queue:
@@ -121,7 +121,7 @@ cloud:
         - your_security_group
       availability_zone: sa
       instance_name_prefix: dynamicwn
-      userdata_file: /etc/dynamictorque/userdata_salt.sh
+      userdata_file: /etc/dynamiccluster/userdata_salt.sh
 
 plugins:
   graphite:

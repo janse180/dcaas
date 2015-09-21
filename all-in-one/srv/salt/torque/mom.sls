@@ -10,23 +10,20 @@ extend:
   servername:
     file:
       - context: {
-        server_name: "{{ grains['master']['fqdn'] }}"
+        server_name: "{{ grains['master'] }}"
         }
 
 mom.config:
   file:
     - managed
     - template: jinja
-    - name: /var/spool/torque/mom_priv/config
+    - name: /etc/torque/mom/config
     - source: salt://torque/mom_config
     - context: {
-      server_name: "{{ grains['master']['fqdn'] }}"
+      server_name: "{{ grains['master'] }}"
       }
-    - user: root
-    - group: root
-    - mode: 644
-    - makedirs: True
-
+    - require:
+      - pkg: torque.packages
 
 pbs_mom:
   service.running:

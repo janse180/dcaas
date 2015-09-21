@@ -3,9 +3,9 @@
 IP=$3
 NODE_NAME=$4
 
-if [ "$1" == "-a" ]; then
-   #/usr/sbin/ipset add wns $IP
-fi
+#if [ "$1" == "-a" ]; then
+#   /usr/sbin/ipset add wns $IP
+#fi
 
 if [ "$1" == "-d" ]; then
   echo "removing node $NODE_NAME"
