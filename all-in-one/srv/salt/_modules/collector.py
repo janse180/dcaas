@@ -85,4 +85,33 @@ def collect_net_dev():
                 for field in fields:
                     data['interface'][interface][direction][field] = int(variables[directions[direction] + fields[field]])
     return data
+
+disk_fields = {
+    "disk_ops" : 0,
+    "disk_merged" : 1,
+    "disk_octets" : 2,
+    "disk_time" : 3
+}
+disk_directions = {
+    "read" : 4,
+    "write" : 8
+} 
+def collect_disk_stat():
+    lines=_readfile("/proc/diskstats")
+    pattern = re.compile("[ :]+")
+    data={"tag": "disk", "timestamp": int(time.time()), "disk": {}}
+    for line in lines:
+        variables = pattern.split(line)
+        disk_name=variables[3]
+        if 'ram' in disk_name or 'loop' in disk_name or 'dm' in disk_name:
+            continue
+        data['disk'][disk_name] = {}
+        for direction in disk_directions:
+            data['disk'][disk_name][direction] = {}
+            for field in disk_fields:
+                data['disk'][disk_name][direction][field] = int(variables[disk_directions[direction] + disk_fields[field]])
+        data['disk'][disk_name]['in_progress']=variables[12]
+        data['disk'][disk_name]['io_time']=variables[13]
+        data['disk'][disk_name]['weighted_time']=variables[14]
+    return data
     

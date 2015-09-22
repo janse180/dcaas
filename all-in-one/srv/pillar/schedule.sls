@@ -15,4 +15,8 @@ schedule:
     function: collector.collect_net_dev
     seconds: 10
     returner: zeromq
+  collect_disk:
+    function: collector.collect_disk_stat
+    seconds: 10
+    returner: zeromq
     

@@ -88,6 +88,11 @@ def _generate_messages(minion_id, data):
             for direction in stat.keys():
                 for field in stat[direction].keys():
                     messages.append("%s.%s.%s.%s.%s %s %d" % (minion_id, data['tag'], interface, field, direction, stat[direction][field], data['timestamp'] ))
+    elif data['tag']=='disk':
+        for disk, stat in data['disk'].iteritems():
+            for direction in ['read', 'write']:
+                for field in stat[direction].keys():
+                    messages.append("%s.%s.%s.%s.%s %s %d" % (minion_id, data['tag'], disk, field, direction, stat[direction][field], data['timestamp'] ))
     return messages
 
 def cleanup(minion_id, whisper_path):
