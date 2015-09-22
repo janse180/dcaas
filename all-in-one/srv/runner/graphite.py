@@ -17,6 +17,8 @@ def send(minion_id, data, host, port):
     _socket.settimeout(timeout_in_seconds)
     addr=(host, port)
     messages = _generate_messages(minion_id, data)
+    if len(messages)==0:
+        return
     try:
         _socket.connect(addr)
     except socket.timeout:
@@ -51,10 +53,41 @@ def send(minion_id, data, host, port):
 
 def _generate_messages(minion_id, data):
     messages=[]
-    if data['tag']=='loadavg':
-        messages.append("%s.load.1min %s %d" % (minion_id, data['1m'], data['timestamp'] ))
-        messages.append("%s.load.5min %s %d" % (minion_id, data['5m'], data['timestamp'] ))
-        messages.append("%s.load.15min %s %d" % (minion_id, data['15m'], data['timestamp'] ))
+    if data['tag']=='load':
+        messages.append("%s.%s.1min %s %d" % (minion_id, data['tag'], data['1m'], data['timestamp'] ))
+        messages.append("%s.%s.5min %s %d" % (minion_id, data['tag'], data['5m'], data['timestamp'] ))
+        messages.append("%s.%s.15min %s %d" % (minion_id, data['tag'], data['15m'], data['timestamp'] ))
+    elif data['tag']=='memory':
+        messages.append("%s.%s.total %s %d" % (minion_id, data['tag'], data['total'], data['timestamp'] ))
+        messages.append("%s.%s.free %s %d" % (minion_id, data['tag'], data['free'], data['timestamp'] ))
+        messages.append("%s.%s.used %s %d" % (minion_id, data['tag'], data['used'], data['timestamp'] ))
+        messages.append("%s.%s.buffered %s %d" % (minion_id, data['tag'], data['buffered'], data['timestamp'] ))
+        messages.append("%s.%s.cached %s %d" % (minion_id, data['tag'], data['cached'], data['timestamp'] ))
+        if 'slab_total' in data:
+            messages.append("%s.%s.cached %s %d" % (minion_id, data['tag'], data['slab_total'], data['timestamp'] ))
+        if 'slab_reclaimable' in data:
+            messages.append("%s.%s.cached %s %d" % (minion_id, data['tag'], data['slab_reclaimable'], data['timestamp'] ))
+        if 'slab_unreclaimable' in data:
+            messages.append("%s.%s.cached %s %d" % (minion_id, data['tag'], data['slab_unreclaimable'], data['timestamp'] ))
+    elif data['tag']=='cpu':
+        for cpu_no, stat in data['cpu'].iteritems():
+            messages.append("%s.%s.%s.idle %s %d" % (minion_id, data['tag'], cpu_no, stat['idle'], data['timestamp'] ))
+            messages.append("%s.%s.%s.user %s %d" % (minion_id, data['tag'], cpu_no, stat['user'], data['timestamp'] ))
+            messages.append("%s.%s.%s.nice %s %d" % (minion_id, data['tag'], cpu_no, stat['nice'], data['timestamp'] ))
+            messages.append("%s.%s.%s.system %s %d" % (minion_id, data['tag'], cpu_no, stat['system'], data['timestamp'] ))
+            if 'wait' in stat:
+                messages.append("%s.%s.%s.wait %s %d" % (minion_id, data['tag'], cpu_no, stat['wait'], data['timestamp'] ))
+            if 'interrupt' in stat:
+                messages.append("%s.%s.%s.interrupt %s %d" % (minion_id, data['tag'], cpu_no, stat['interrupt'], data['timestamp'] ))
+            if 'softirq' in stat:
+                messages.append("%s.%s.%s.softirq %s %d" % (minion_id, data['tag'], cpu_no, stat['softirq'], data['timestamp'] ))
+            if 'steal' in stat:
+                messages.append("%s.%s.%s.steal %s %d" % (minion_id, data['tag'], cpu_no, stat['steal'], data['timestamp'] ))
+    elif data['tag']=='interface':
+        for interface, stat in data['interface'].iteritems():
+            for direction in stat.keys():
+                for field in stat[direction].keys():
+                    messages.append("%s.%s.%s.%s.%s %s %d" % (minion_id, data['tag'], interface, field, direction, stat[direction][field], data['timestamp'] ))
     return messages
 
 def cleanup(minion_id, whisper_path):

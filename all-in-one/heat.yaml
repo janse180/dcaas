@@ -37,20 +37,13 @@ parameters:
     description: Openstack Name of the head node
     default: dynamiccluster
 
-  control_network:    
+  user_network:    
     type: string
-    label: Network Range for Cluster Admin
-    description: the is where the admin gets into dynamic cluster's dashboard and ssh console from
+    label: Network Range for users
+    description: the is where the users get into dynamic cluster's dashboard and ssh console from
     default: 172.16.5.0/24
 
 resources:
-
-  dynamic_cluster_wn:
-    type: AWS::EC2::SecurityGroup
-    properties:
-      GroupDescription: access rules for dynamic cluster worker nodes.
-      SecurityGroupIngress:
-        - { IpProtocol: tcp, FromPort: '22', ToPort: '22', CidrIp: {get_param: control_network} }
 
   dynamic_cluster_sg:
     # Use this when we do not have Neutron networking.
@@ -59,11 +52,13 @@ resources:
     properties:
       GroupDescription: access rules for dynamic cluster.
       SecurityGroupIngress:
-        - { IpProtocol: tcp, FromPort: '1', ToPort: '65535', SourceSecurityGroupName : { get_resource: dynamic_cluster_wn } }
-        - { IpProtocol: udp, FromPort: '1', ToPort: '65535', SourceSecurityGroupName : { get_resource: dynamic_cluster_wn } }
+        # controlled by iptables, in security group we open up to whole world
+        - { IpProtocol: tcp, FromPort: '15001', ToPort: '15004', CidrIp : "0.0.0.0/0" }
+        - { IpProtocol: tcp, FromPort: '4505', ToPort: '4506', CidrIp : "0.0.0.0/0" }
+        - { IpProtocol: tcp, FromPort: '2049', ToPort: '2049', CidrIp : "0.0.0.0/0" }
+        # controlled by security group
         - { IpProtocol: tcp, FromPort: '22', ToPort: '22', CidrIp: {get_param: control_network} }
-        - { IpProtocol: tcp, FromPort: '8001', ToPort: '8001', CidrIp: {get_param: control_network} }
-        - { IpProtocol: tcp, FromPort: '8080', ToPort: '8080', CidrIp: {get_param: control_network} }
+        - { IpProtocol: tcp, FromPort: '443', ToPort: '443', CidrIp: {get_param: control_network} }
 
   server:
     # http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Nova::Server
@@ -105,7 +100,7 @@ resources:
           /usr/bin/qmgr -c 'set queue default started = True'
           /usr/bin/qmgr -c 'set server default_queue = default'
         params:
-          $security_group$: { get_resource: dynamic_cluster_wn }
+          $security_group$: { get_resource: dynamic_cluster_sg }
           $key_name$: {get_param: key_name}
 
 outputs:

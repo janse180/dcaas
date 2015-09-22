@@ -64,13 +64,6 @@ graphite-web.conf:
     - name: /etc/httpd/conf.d/graphite-web.conf
     - source: salt://graphite/graphite-web.conf
 
-extend:
-  httpd:
-    service:
-      - enable: True
-      - watch:
-        - file: graphite-web.conf
-
 #clean_db.sh:
 #  file:
 #    - managed

@@ -1,1 +1,1 @@
-/data 130.220.208.0/20(no_root_squash,rw,sync)
+/data *(no_root_squash,rw,sync)

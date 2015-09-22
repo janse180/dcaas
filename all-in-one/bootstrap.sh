@@ -18,4 +18,4 @@ reactor:
     - /srv/reactor/collector.sls
 EOF
 service salt-master start
-salt-call --local state.sls nova,graphite,httpd,nfs.server,ntp,torque.server,maui,users
+salt-call --local state.sls nova,firewall.hn,graphite,httpd,nfs.server,ntp,torque.server,maui,users
