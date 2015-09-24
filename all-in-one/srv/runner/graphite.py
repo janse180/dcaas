@@ -54,9 +54,9 @@ def send(minion_id, data, host, port):
 def _generate_messages(minion_id, data):
     messages=[]
     if data['tag']=='load':
-        messages.append("%s.%s.1min %s %d" % (minion_id, data['tag'], data['1m'], data['timestamp'] ))
-        messages.append("%s.%s.5min %s %d" % (minion_id, data['tag'], data['5m'], data['timestamp'] ))
-        messages.append("%s.%s.15min %s %d" % (minion_id, data['tag'], data['15m'], data['timestamp'] ))
+        messages.append("%s.%s.1m %s %d" % (minion_id, data['tag'], data['1m'], data['timestamp'] ))
+        messages.append("%s.%s.5m %s %d" % (minion_id, data['tag'], data['5m'], data['timestamp'] ))
+        messages.append("%s.%s.15m %s %d" % (minion_id, data['tag'], data['15m'], data['timestamp'] ))
     elif data['tag']=='memory':
         messages.append("%s.%s.total %s %d" % (minion_id, data['tag'], data['total'], data['timestamp'] ))
         messages.append("%s.%s.free %s %d" % (minion_id, data['tag'], data['free'], data['timestamp'] ))
