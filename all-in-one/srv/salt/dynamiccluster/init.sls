@@ -42,3 +42,11 @@ dynamiccluster:
       - cmd: dynamiccluster.package
     - watch:
       - file: dynamiccluster.config
+
+/usr/share/dynamiccluster/scripts/check_maui.sh > /dev/null 2>&1:
+  cron.present:
+    - user: root
+    - minute: '*/5'
+    - require:
+      - cmd: dynamiccluster.package
+    
