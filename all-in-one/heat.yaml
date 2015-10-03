@@ -17,11 +17,13 @@ parameters:
 
   instance_type:
     type: string
+    label: Instance Type
     description: The NeCTAR flavour the webserver is to run on
     default: m1.small
 
   image_id:
     type: string
+    label: Image ID
     description: ID of the image to use for the instance to be created (MUST BE CentOS/SL), the default value is Nectar's official SL 6.5
     default: c4ab5035-acb2-4cbf-9f34-eb14131d8cee
 
@@ -33,7 +35,7 @@ parameters:
 
   server_name:
     type: string
-    label: Openstack Name of the head node
+    label: OpenStack Name of the head node
     description: Openstack Name of the head node
     default: dynamiccluster
 
