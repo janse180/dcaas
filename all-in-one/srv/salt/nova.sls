@@ -8,7 +8,7 @@ compiler.packages:
 pip:
   cmd:
     - run
-    - name: easy_install pip==1.3.0
+    - name: easy_install pip==1.5.4
     - unless: command -v pip >/dev/null 2>&1
     - require:
       - pkg: compiler.packages
