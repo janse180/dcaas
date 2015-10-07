@@ -59,8 +59,8 @@ resources:
         - { IpProtocol: tcp, FromPort: '4505', ToPort: '4506', CidrIp : "0.0.0.0/0" }
         - { IpProtocol: tcp, FromPort: '2049', ToPort: '2049', CidrIp : "0.0.0.0/0" }
         # controlled by security group
-        - { IpProtocol: tcp, FromPort: '22', ToPort: '22', CidrIp: {get_param: control_network} }
-        - { IpProtocol: tcp, FromPort: '443', ToPort: '443', CidrIp: {get_param: control_network} }
+        - { IpProtocol: tcp, FromPort: '22', ToPort: '22', CidrIp: {get_param: user_network} }
+        - { IpProtocol: tcp, FromPort: '443', ToPort: '443', CidrIp: {get_param: user_network} }
 
   server:
     # http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Nova::Server
