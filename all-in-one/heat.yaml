@@ -75,35 +75,36 @@ resources:
         - {get_resource: dynamic_cluster_sg}
       user_data_format: RAW
       user_data: 
-        str_replace: |
-          #!/bin/bash
-          # disable selinux
-          /bin/sed -i 's/^SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
-          /usr/sbin/setenforce Permissive
-          # figure out correct hostname
-          yum install -y bind-utils
-          IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d' ' -f1)
-          NAME=$(nslookup $IP | grep "name =" | cut -d" " -f3)
-          HOSTNAME=$(echo $NAME | sed - -e "s/\.$//")
-          if [ ! "$(hostname)" = "$HOSTNAME" ]; then
-              # set hostname in system files
-              /bin/hostname $HOSTNAME
-              echo "$IP $HOSTNAME" >> /etc/hosts
-              /bin/sed -i -e "s/^HOSTNAME=.*$/HOSTNAME=$HOSTNAME/" /etc/sysconfig/network
-          fi
-          # run configuration
-          curl https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/bootstrap.sh | sh -
-          /bin/sed -i 's/your_security_group/$security_group$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
-          /bin/sed -i 's/your_key/$key_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
-          /usr/bin/qmgr -c 'create queue default'
-          /usr/bin/qmgr -c 'set queue default queue_type = Execution'
-          /usr/bin/qmgr -c 'set queue default resources_default.walltime = 9000:00:00'
-          /usr/bin/qmgr -c 'set queue default enabled = True'
-          /usr/bin/qmgr -c 'set queue default started = True'
-          /usr/bin/qmgr -c 'set server default_queue = default'
-        params:
-          $security_group$: { get_resource: dynamic_cluster_sg }
-          $key_name$: {get_param: key_name}
+        str_replace:
+          template: |
+            #!/bin/bash
+            # disable selinux
+            /bin/sed -i 's/^SELINUX=.*$/SELINUX=disabled/' /etc/selinux/config
+            /usr/sbin/setenforce Permissive
+            # figure out correct hostname
+            yum install -y bind-utils
+            IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d' ' -f1)
+            NAME=$(nslookup $IP | grep "name =" | cut -d" " -f3)
+            HOSTNAME=$(echo $NAME | sed - -e "s/\.$//")
+            if [ ! "$(hostname)" = "$HOSTNAME" ]; then
+                # set hostname in system files
+                /bin/hostname $HOSTNAME
+                echo "$IP $HOSTNAME" >> /etc/hosts
+                /bin/sed -i -e "s/^HOSTNAME=.*$/HOSTNAME=$HOSTNAME/" /etc/sysconfig/network
+            fi
+            # run configuration
+            curl https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/bootstrap.sh | sh -
+            /bin/sed -i 's/your_security_group/$security_group$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /bin/sed -i 's/your_key/$key_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /usr/bin/qmgr -c 'create queue default'
+            /usr/bin/qmgr -c 'set queue default queue_type = Execution'
+            /usr/bin/qmgr -c 'set queue default resources_default.walltime = 9000:00:00'
+            /usr/bin/qmgr -c 'set queue default enabled = True'
+            /usr/bin/qmgr -c 'set queue default started = True'
+            /usr/bin/qmgr -c 'set server default_queue = default'
+          params:
+            $security_group$: { get_resource: dynamic_cluster_sg }
+            $key_name$: {get_param: key_name}
 
 outputs:
 
