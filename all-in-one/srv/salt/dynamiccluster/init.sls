@@ -1,8 +1,8 @@
 dynamiccluster.package:
   cmd:
     - run
-    - name: yum localinstall -y https://github.com/eResearchSA/citc/raw/master/rpms/dynamiccluster-0.5.0-1.el6.noarch.rpm
-    - unless: rpm -q dynamiccluster-0.5.0-1.el6.noarch
+    - name: yum localinstall -y https://github.com/eResearchSA/citc/raw/master/rpms/dynamiccluster-1.0.0-1.el6.noarch.rpm
+    - unless: rpm -q dynamiccluster-1.0.0-1.el6.noarch
 
 dynamiccluster.config:
   file:
