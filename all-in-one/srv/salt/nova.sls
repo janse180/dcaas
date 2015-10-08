@@ -8,7 +8,7 @@ compiler.packages:
 pip:
   cmd:
     - run
-    - name: easy_install pip==1.5.4
+    - name: easy_install pip==1.3.0
     - unless: command -v pip >/dev/null 2>&1
     - require:
       - pkg: compiler.packages
@@ -19,4 +19,4 @@ python-novaclient:
     - name: pip install python-novaclient
     - unless: pip freeze|grep -q python-novaclient
     - require:
-      - cmd: pip      
+      - cmd: pip

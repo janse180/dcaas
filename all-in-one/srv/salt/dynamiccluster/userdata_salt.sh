@@ -7,7 +7,7 @@ cat << EOF > /etc/salt/minion
 master: {{ grains['fqdn'] }}
 EOF
 cat << EOF > /etc/salt/minion_id
-{{ {{ }} minion_id {{ }} }}
+{{ '{{' }} minion_id {{ '}}' }}
 EOF
 chkconfig salt-minion on
 /etc/init.d/salt-minion start
