@@ -9,19 +9,17 @@ permalink: /index.html
 
 
   <section id="lead" class="lead">
-    The Cluster in the Cloud project gives you ideas and reference architecture in expanding your cluster to the cloud.
+    The Dynamic Cluster as a Service (DCAAS) project provides solutions for deploying dynamic clusters in the cloud, including a reference architecture, example configurations and deployment tools.
     All solutions provided are based on <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a>.
   </section>
 
 ## Overview
 
-Dynamic Cluster is a key element in the deployment of dynamic cluster in the cloud. Apart from that, we also need to consider several things when running a cluster in the cloud.
+The Dynamic Cluster software enables the deployment of a dynamic cluster in the cloud. Clusters can be configured in a number of different ways, so we also need to consider several things when setting up a cluster in the cloud, including:
 
-Some aspects to consider:
-
-- Selection of cloud system
-- Authentication Mechanisms of the cloud
-- Configuring Workload Managers/Schedulers
+- Selection of cloud infrastructure (or middleware)
+- Authentication mechanisms of the cloud
+- Configuring cluster Workload Managers/Schedulers
 - Performance / workload of jobs running in the cloud
 - Decision on which jobs to Cloud Burst.
 - Network connectivity
@@ -29,17 +27,20 @@ Some aspects to consider:
 
 A typical cluster consists the following components:
 
-* A queueing system and a scheduler
-* A central user system
+* A job management (or queueing) system and a scheduler
+* A central user authentication system
 * A shared file system, unless some mechanism to stage in/out files is in place
 * A configuration management system, such as puppet or salt stack, or simply use userdata script or cloudinit in the cloud
 * A monitoring system
 
+DCAAS provides example solutions to enable cluster administrators to easily set up a dynamic cluster in the cloud.
+
 ## Reference architecture
 
-We present several reference architecture here to give readers a better idea on how to use <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a>.
+Here we present several reference architectures to give clsuter administrators a better idea on how to use <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a> for different requirements.
 
-It can be used in many different ways. The following setups are just examples.
+Dynamic Cluster can be used in many different ways. The following configurations are just example solutions for common requirements.
 
-* All in one: suitable for new users who want to quickly get Dynamic Cluster running in the cloud and learn how to use/configure it.
-* Torque HA: this is the model used by eResearch SA to provide cluster in the cloud solution to users.
+* Standard: Uses only cloud infrastructure for all components of the cluster. Suitable for new users who want to quickly get Dynamic Cluster running in the cloud and learn how to use/configure it. 
+* Cloud worker nodes: Uses some dedicated servers for key components including the head node, with the cloud used just for worker nodes.
+* High Availability: Key components including the head node and submit nodes are set up on dedicated local servers or VMs with an HA configuration.
