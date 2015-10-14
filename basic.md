@@ -1,12 +1,12 @@
 ---
 layout: home
-title: Cluster in the Cloud - All in One
-slug: allinone
-permalink: /allinone.html
+title: Cluster in the Cloud - Basic setup
+slug: basic
+permalink: /basic.html
 ---
-# All in one
+# Basic Setup
 
-This setup creates a cluster in the NeCTAR OpenStack cloud with all the key components installed on one host on a cloud virtual machine.
+The basic setup creates a cluster in the NeCTAR OpenStack cloud with all the key components installed on one host on a cloud virtual machine.
 
 This is recommended for people who are new to Dynamic Cluster and just want a basic system that they can start using.
 A Heat template file is also provided so a working dynamic cluster can be easily deployed through a point-and-click interface.

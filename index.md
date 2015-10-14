@@ -10,7 +10,7 @@ permalink: /index.html
 # Dynamic Cluster as a Service
 
   <section id="lead" class="lead">
-    The Dynamic Cluster as a Service (DCAAS) project provides solutions for deploying dynamic clusters in the cloud, including a reference architecture, example configurations and deployment tools.
+    The Dynamic Cluster as a Service (DCaaS) project provides solutions for deploying dynamic clusters in the cloud, including a reference architecture, example configurations and deployment tools.
     All solutions provided are based on <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a>.
   </section>
 
@@ -34,7 +34,7 @@ A typical cluster consists the following components:
 * A configuration management system, such as puppet or salt stack, or simply use userdata script or cloudinit in the cloud
 * A monitoring system
 
-DCAAS provides example solutions to enable cluster administrators to easily set up a dynamic cluster in the cloud.
+DCaaS provides example solutions to enable cluster administrators to easily set up a dynamic cluster in the cloud.
 
 ## Reference architecture
 
