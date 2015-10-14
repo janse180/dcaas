@@ -1,12 +1,13 @@
 ---
 layout: home
-title: Cluster in the cloud - expanding your cluster to the cloud
+title: Dynamic Cluster as a Service - expanding your cluster to the cloud
 slug: home
 permalink: /index.html
 ---
 <p>
 </p>
 
+# Dynamic Cluster as a Service
 
   <section id="lead" class="lead">
     The Dynamic Cluster as a Service (DCAAS) project provides solutions for deploying dynamic clusters in the cloud, including a reference architecture, example configurations and deployment tools.
@@ -41,6 +42,6 @@ Here we present several reference architectures to give clsuter administrators a
 
 Dynamic Cluster can be used in many different ways. The following configurations are just example solutions for common requirements.
 
-* Standard: Uses only cloud infrastructure for all components of the cluster. Suitable for new users who want to quickly get Dynamic Cluster running in the cloud and learn how to use/configure it. 
-* Cloud worker nodes: Uses some dedicated servers for key components including the head node, with the cloud used just for worker nodes.
+* Basic: A single-tenant, single zone cluster, suitable for new users who want to quickly get Dynamic Cluster running in the cloud and learn how to use/configure it. Uses only cloud infrastructure, with a single VM for the key components of the cluster (head node, submit node, NFS server, etc). 
+* Advanced: Allows multiple tenants and project resource allocations and multiple zones. Can allow use of dedicated servers for key components including the head node, with the cloud used just for worker nodes.
 * High Availability: Key components including the head node and submit nodes are set up on dedicated local servers or VMs with an HA configuration.
