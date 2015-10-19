@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Dynamic Cluster - Design
+title: Dynamic Cluster as a Service - Torque High Availability
 slug: torqueha
 permalink: /torqueha.html
 ---

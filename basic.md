@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Cluster in the Cloud - Basic setup
+title: Dynamic Cluster as a Service - Basic setup
 slug: basic
 permalink: /basic.html
 ---

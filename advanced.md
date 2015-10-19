@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Cluster in the Cloud - Advanced setup
+title: Dynamic Cluster as a Service - Advanced setup
 slug: advanced
 permalink: /advanced.html
 ---
