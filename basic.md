@@ -13,7 +13,7 @@ A Heat template file is also provided so a working dynamic cluster can be easily
 
 ## Installation
 
-The URL of Heat template is https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/heat.yaml
+The URL of Heat template is https://raw.githubusercontent.com/eResearchSA/dcaas/master/all-in-one/heat.yaml
 
 This allows the user to easily start up a head node for the cluster.
 
