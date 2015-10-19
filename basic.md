@@ -50,6 +50,18 @@ If everything works well, you will be able to use a web browser to go to the Dyn
 
 The template creates a user called *fred*, which is used to submit jobs. A directory called /data is created on the instance storage of the head node and shared via NFS and mounted on all worker nodes, and users must submit jobs from there. If you have access to cloud volume storage, you can mount the volume as /data and use that instead.
 
+If you want to add more users, edit file /opt/all-in-one/srv/salt/users.sls, and add more users/groups to it.
+
+Then run 
+
+	salt-call --local state.sls users
+	
+to create users on the head node and run
+
+	salt '*' state.sls users
+	
+to create users on all existing working nodes.
+
 ## System Structure
 
 The Heat template installs the following components.
