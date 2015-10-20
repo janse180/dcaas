@@ -2,9 +2,9 @@
 
 yum install -y salt-master git salt-minion
 cd /opt
-curl -L https://api.github.com/repos/eresearchsa/citc/tarball/master | tar xfvz - eResearchSA-citc-*/all-in-one
-mv eResearchSA-citc-*/all-in-one .
-rmdir eResearchSA-citc-*
+curl -L https://api.github.com/repos/eresearchsa/dcaas/tarball/master | tar xfvz - eResearchSA-dcaas-*/all-in-one
+mv eResearchSA-dcaas-*/all-in-one .
+rmdir eResearchSA-dcaas-*
 rm -rf /srv
 ln -s /opt/all-in-one/srv /srv
 echo -n "runner_dirs: [\"/srv/runner\"]" >> /etc/salt/master

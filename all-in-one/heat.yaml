@@ -2,7 +2,7 @@
 heat_template_version: 2014-10-16
 
 # this template builds an instance with all necessary components for dynamic cluster
-# for details please refer http://eresearchsa.github.io/citc/all-in-one.html
+# for details please refer http://eresearchsa.github.io/dcaas/all-in-one.html
 
 description: >
   This template builds the head node of a working dynamic cluster for evaluation.
@@ -93,7 +93,7 @@ resources:
                 /bin/sed -i -e "s/^HOSTNAME=.*$/HOSTNAME=$HOSTNAME/" /etc/sysconfig/network
             fi
             # run configuration
-            curl https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/bootstrap.sh | sh -
+            curl https://raw.githubusercontent.com/eResearchSA/dcaas/master/all-in-one/bootstrap.sh | sh -
             /bin/sed -i 's/your_security_group/$security_group$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_key/$key_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /usr/bin/qmgr -c 'create queue default'

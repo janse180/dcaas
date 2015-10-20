@@ -23,7 +23,7 @@ salt-call --local state.sls nova,graphite,httpd,nfs.server,ntp,torque.server,mau
 
 run bootstrap script
 ```
-curl https://raw.githubusercontent.com/eResearchSA/citc/master/all-in-one/bootstrap.sh | sh -
+curl https://raw.githubusercontent.com/eResearchSA/dcaas/master/all-in-one/bootstrap.sh | sh -
 ```
 
 install dynamic cluster
