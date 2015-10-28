@@ -12,7 +12,7 @@ We present two examples here to demonstrate how to set up multiple availability 
 
 ## Multiple availability zones
 
-This setup runs worker nodes in multiple zones with one cloud account. This is a typical use case of CoEPP's local scheduler.
+This setup runs worker nodes in multiple zones with one cloud account. This is a typical use case for a large national research organisation with a large cloud resource allocation.
 
 In order to launch worker nodes in several zones, we add a resource for each zone. For example, the cloud section in Dynamic Cluster's config file would look like:
 
@@ -22,7 +22,7 @@ In order to launch worker nodes in several zones, we add a resource for each zon
 	    reservation:
 	      queue:
 	      account:
-	      property: MEL
+	      property: TAS
 	    quantity:
 	      min: 10
 	      max: 25
@@ -49,7 +49,7 @@ In order to launch worker nodes in several zones, we add a resource for each zon
 	    quantity:
 	      min: 5
 	      max: 10
-	    priority: 5
+	    priority: 4
 	    config:
 	      username: your_username
 	      password: your_password
@@ -72,7 +72,7 @@ In order to launch worker nodes in several zones, we add a resource for each zon
 	    quantity:
 	      min: 10
 	      max: 15
-	    priority: 5
+	    priority: 4
 	    config:
 	      username: your_username
 	      password: your_password
@@ -106,9 +106,9 @@ Each resource has quantity values that specifies the minimum number and the maxi
 
 ## Multiple cloud accounts (multiple tenants/projects)
 
-Dynamic Cluster has the ability to manage resources on behalf of users, as long as necessary permissions are set up. AWS has a mature and comprehensive authorization system that can manage multiple identities and grant them access to a subset of required permissions. However, this is still evolving in OpenStack. The minimum requirement is that Dynamic Cluster needs an account to start and delete instances for users. There are several ways to do this, although they are not as perfect as the AWS system, and this largely depends on your user policies as to what can be done. In the user case of eResearch SA, users need to add an eRSA sysadmin to their OpenStack project so that the sysadmin can put his own OpenStack account in Dynamic Cluster to start/delete instances for users. If permitted, a service account can also be created for Dynamic Cluster and then there is no need to use someone's personal account.
+Dynamic Cluster has the ability to manage resources on behalf of users, as long as necessary permissions are set up. AWS has a mature and comprehensive authorization system that can manage multiple identities and grant them access to a subset of required permissions. However, this is still evolving in OpenStack. The minimum requirement is that Dynamic Cluster needs an account to start and delete instances for users. There are several ways to do this, although they are not as ideal as the AWS system, and this largely depends on your user policies as to what can be done. One approach is for users need to add a cluster administrator to their OpenStack project so that the sysadmin can put their own OpenStack account in Dynamic Cluster to start/delete instances for users. Ideally a service account could instead be created for Dynamic Cluster and then there is no need to use someone's personal account.
 
-Once access is granted, we can set up Dynamic Cluster to make use of it. The following config snippet comes from eRSA's system. The use case is, there is a shared worker node pool that is for all users. Each registered tenant/project has a dedicated pool that is only for users from this tenant/project. Jobs targeted at the dedicated pool should land in the dedicated pool first. If the dedicated pool is full, jobs will overflow to the shared pool. Jobs that are not targeted at any dedicated pool should only land in the shared pool. 
+Once access is granted, we can set up Dynamic Cluster to make use of it. The following config snippet comes from eRSA's system. The use case here is that there is a shared worker node pool (using eRSA's cloud resource allocation) that is for all users. Each registered tenant/project has a dedicated pool from their cloud resource allocation that is only for users from this tenant/project. Jobs targeted at the dedicated pool should land on compute nodes in the dedicated pool first. If the dedicated pool is full, jobs will overflow to the shared pool. Jobs that are not targeted at any dedicated pool should only land in the shared pool. 
 
 	cloud:
 	  default:
