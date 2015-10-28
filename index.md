@@ -38,10 +38,10 @@ DCaaS provides example solutions to enable cluster administrators to easily set 
 
 ## Reference architecture
 
-Here we present several reference architectures to give clsuter administrators a better idea on how to use <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a> for different requirements.
+Here we present some reference architectures to give cluster administrators a better idea of how to use <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a> for different requirements.
 
-Dynamic Cluster can be used in many different ways. The following configurations are just example solutions for common requirements.
+Dynamic Cluster can be used in many different ways. The following configurations are some example solutions for common requirements.
 
 * [Basic](./basic.html): A single-tenant, single zone cluster, suitable for new users who want to quickly get Dynamic Cluster running in the cloud and learn how to use/configure it. Uses only cloud infrastructure, with a single VM for the key components of the cluster (head node, submit node, NFS server, etc). 
 * [Advanced](./advanced.html): Allows multiple tenants and project resource allocations and multiple zones. Can allow use of dedicated servers for key components including the head node, with the cloud used just for worker nodes.
-* [Torque High Availability](./torqueha.html): Key components including the head node and submit nodes are set up on dedicated local servers or VMs with an HA configuration.
+
