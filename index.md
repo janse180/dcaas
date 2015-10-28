@@ -24,17 +24,17 @@ The Dynamic Cluster software enables the deployment of a dynamic cluster in the 
 - Performance / workload of jobs running in the cloud
 - Decision on which jobs to Cloud Burst.
 - Network connectivity
-- Cloud Security
+- Security
 
 A typical cluster consists the following components:
 
-* A job management (or queueing) system and a scheduler
+* A job management (or queueing) system and a job scheduler
 * A central user authentication system
 * A shared file system, unless some mechanism to stage in/out files is in place
-* A configuration management system, such as puppet or salt stack, or simply use userdata script or cloudinit in the cloud
+* A configuration management system, such as Puppet or Salt stack, or simply use userdata script or cloudinit in the cloud
 * A monitoring system
 
-DCaaS provides example solutions to enable cluster administrators to easily set up a dynamic cluster in the cloud.
+DCaaS provides example solutions to enable cluster administrators to easily set up a dynamic cluster in the cloud for different requirements, cluster components and cloud middleware.
 
 ## Reference architecture
 
