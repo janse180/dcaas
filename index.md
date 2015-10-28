@@ -11,7 +11,7 @@ permalink: /index.html
 
   <section id="lead" class="lead">
     The Dynamic Cluster as a Service (DCaaS) project provides solutions for deploying dynamic clusters in the cloud, including reference architectures, example configurations and deployment tools.
-    All solutions provided are based on <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a>.
+    All solutions provided are based on the <a href="http://eresearchsa.github.io/dynamiccluster">Dynamic Cluster</a> software.
   </section>
 
 ## Overview
