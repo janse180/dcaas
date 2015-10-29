@@ -134,11 +134,11 @@ Once access is granted, we can set up Dynamic Cluster to make use of it. The fol
 	      availability_zone: sa
 	      instance_name_prefix: pbswn-default
 	      userdata_file: /etc/dynamiccluster/userdata_salt.sh
-	  test:
+	  short:
 	    type: openstack
 	    reservation:
 	      queue:
-	      account: test
+	      account: short
 	      property:
 	    quantity:
 	      min: 1
@@ -155,22 +155,22 @@ Once access is granted, we can set up Dynamic Cluster to make use of it. The fol
 	      security_groups:
 	        - your_security_group
 	      availability_zone: sa
-	      instance_name_prefix: pbswn-test
+	      instance_name_prefix: pbswn-short
 	      userdata_file: /etc/dynamiccluster/userdata_salt.sh
 	      
-In this setup, a sysadmin's account has been added to all user projects that need to use the cluster. That's why *username* and *password* in config are the same. The only difference is *project* in config which indicates which user project to use. Access control on resources is configured in *reservation*. This example has two resources: one _default_ resource that is for all users, and one _test_ resource that is for authorized users only. When a worker node is launched for the _test_resource, Dynamic Cluster will use MAUI's reservation mechanism to create an account reservation. If you run 
+In this setup, a sysadmin's account has been added to all user projects that need to use the cluster. That's why *username* and *password* in config are the same. The only difference is *project* in config which indicates which user project to use. Access control on resources is configured in *reservation*. This example has two resources: one _default_ resource that is for all users, and one _short_ resource that is for authorized users only. When a worker node is launched for the _short_ resource, Dynamic Cluster will use MAUI's reservation mechanism to create an account reservation. If you run 
 
 	showres -n
 	
 you'll see something like
 
-	cw-vm-d0fa.sa.nectar.org.au       User             test.1        N/A    1   -INFINITY    INFINITE  Fri Sep 25 14:05:17
+	cw-vm-d0fa.sa.nectar.org.au       User             short.1        N/A    1   -INFINITY    INFINITE  Fri Sep 25 14:05:17
 	
-This means the worker node *cw-vm-d0fa.sa.nectar.org.au* is reserved for the *test* account.
+This means the worker node *cw-vm-d0fa.sa.nectar.org.au* is reserved for the *short* account.
 
 When a user needs to submit a job to this worker node, he/she needs to add the account name in qsub command.
 
-	qsub -A test job.script
+	qsub -A short job.script
 	
 We can use Torque's submit filter to restrict authorized users to use this account name when submitting the job. If the user is not in the list, submission will be rejected.
 
@@ -277,6 +277,6 @@ and the *qsub_filter* is a script. Here is an example: (the filter script is als
 	
 and the user list is in /var/spool/torque/accounts.conf
 
-	test user1 user2 user3
+	short user1 user2 user3
 	
-Then only user1, user2 and user3 can submit jobs to the *test* resource.
+Then only user1, user2 and user3 can submit jobs to the *short* resource.
