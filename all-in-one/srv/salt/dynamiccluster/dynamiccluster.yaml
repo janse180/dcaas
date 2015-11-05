@@ -16,7 +16,7 @@ dynamic-cluster:
   #  default is 20
   cloud_poller_interval: 20
   # number of workers
-  worker_number: 2
+  worker_process_number: 2
   # auto mode, dynamic cluster works out which one to kill and how many to fire up according to work load
   auto_mode: True
   admin-server:
