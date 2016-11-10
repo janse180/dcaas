@@ -123,7 +123,6 @@ resources:
             /bin/sed -i 's/your_image/$worker_image$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_flavor/$worker_type$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_domain/$domain_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
-
             /usr/bin/qmgr -c 'create queue default'
             /usr/bin/qmgr -c 'set queue default queue_type = Execution'
             /usr/bin/qmgr -c 'set queue default resources_default.walltime = 9000:00:00'
