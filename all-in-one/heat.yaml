@@ -13,25 +13,49 @@ parameters:
     type: string
     label: Key Name
     description: Name of an existing KeyPair to enable SSH access to the instances.
-    default: ersakey
+    default: cloud_key
 
   instance_type:
     type: string
     label: Instance Type
-    description: The NeCTAR flavour the webserver is to run on
-    default: m1.small
+    description: The flavour the webserver is to run on.
+    default: m1.large
+
+  worker_type:
+    type: string
+    label: Worker Type
+    description: The flavour the worker node is to run on.
+    default: Cluster_Worker
 
   image_id:
     type: string
     label: Image ID
     description: ID of the image to use for the instance to be created (MUST BE CentOS/SL), the default value is Nectar's official SL 6.5
-    default: c4ab5035-acb2-4cbf-9f34-eb14131d8cee
+    default: 186f27a3-8498-4b9a-9385-bab31a70b3e1
+ 
+  worker_image:
+    type: string
+    label: Worker Image ID
+    description: ID of the image that will be used for the worker nodes.
+    default: 186f27a3-8498-4b9a-9385-bab31a70b3e1
 
   availability_zone:
     type: string
     label: Availability Zone
     description: Name of the availability zone to fire up the cluster head node.
-    default: sa
+    default: nova
+
+  server_name:
+    type: string
+    label: OpenStack Name of the head node
+    description: Openstack Name of the head node
+    default: dynamiccluster
+
+  domain:
+    type: string
+    label: Keystone Domain
+    description: The keystone domain name that project_domain and user_domain will be set to.
+    default: ad
 
   server_name:
     type: string
@@ -43,7 +67,7 @@ parameters:
     type: string
     label: Network Range for users
     description: the is where the users get into dynamic cluster's dashboard and ssh console from
-    default: 172.16.5.0/24
+    default: 10.21.69.0/24
 
 resources:
 
@@ -93,9 +117,13 @@ resources:
                 /bin/sed -i -e "s/^HOSTNAME=.*$/HOSTNAME=$HOSTNAME/" /etc/sysconfig/network
             fi
             # run configuration
-            curl https://raw.githubusercontent.com/eResearchSA/dcaas/master/all-in-one/bootstrap.sh | sh -
+            curl https://raw.githubusercontent.com/janse180/dcaas/master/all-in-one/bootstrap.sh | sh -
             /bin/sed -i 's/your_security_group/$security_group$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_key/$key_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /bin/sed -i 's/your_image/$worker_image$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /bin/sed -i 's/your_flavor/$worker_type$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /bin/sed -i 's/your_domain/$domain_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+
             /usr/bin/qmgr -c 'create queue default'
             /usr/bin/qmgr -c 'set queue default queue_type = Execution'
             /usr/bin/qmgr -c 'set queue default resources_default.walltime = 9000:00:00'
@@ -105,6 +133,10 @@ resources:
           params:
             $security_group$: { get_resource: dynamic_cluster_sg }
             $key_name$: {get_param: key_name}
+            $worker_image$: {get_param: worker_image}
+            $worker_type$: {get_param: worker_type}
+            $domain_name$: {getparam: domain}
+            
 
 outputs:
 

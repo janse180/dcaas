@@ -113,13 +113,15 @@ cloud:
       username: your_name
       password: your_password
       project: your_project
-      image_uuid: 1b66d8cd-7d10-413a-ae06-3b61560e788a
-      flavor: m1.small
-      auth_url: https://keystone.rc.nectar.org.au:5000/v2.0/
+      user_domain_name: your_domain
+      project_domain_name: your_domain
+      image_uuid: your_image
+      flavor: your_flavor
+      auth_url: https://openstack.safl.umn.edu:5000/v3.0
       key_name: your_key
       security_groups:
         - your_security_group
-      availability_zone: sa
+      availability_zone: nova
       instance_name_prefix: dynamicwn
       userdata_file: /etc/dynamiccluster/userdata_salt.sh
 

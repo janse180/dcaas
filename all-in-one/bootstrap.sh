@@ -1,10 +1,11 @@
 #!/bin/bash
 
+yum install -y epel-release
 yum install -y salt-master git salt-minion
 cd /opt
-curl -L https://api.github.com/repos/eresearchsa/dcaas/tarball/master | tar xfvz - eResearchSA-dcaas-*/all-in-one
-mv eResearchSA-dcaas-*/all-in-one .
-rmdir eResearchSA-dcaas-*
+curl -L https://api.github.com/repos/janse180/dcaas/tarball/master | tar xfvz - janse180-dcaas-*/all-in-one
+mv janse180-dcaas-*/all-in-one .
+rmdir janse180-dcaas-*
 rm -rf /srv
 ln -s /opt/all-in-one/srv /srv
 echo -n "runner_dirs: [\"/srv/runner\"]" >> /etc/salt/master
