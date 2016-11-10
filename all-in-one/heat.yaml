@@ -51,7 +51,7 @@ parameters:
     description: Openstack Name of the head node
     default: dynamiccluster
 
-  domain:
+  domain_id:
     type: string
     label: Keystone Domain
     description: The keystone domain name that project_domain and user_domain will be set to.
@@ -122,7 +122,7 @@ resources:
             /bin/sed -i 's/your_key/$key_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_image/$worker_image$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /bin/sed -i 's/your_flavor/$worker_type$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
-            /bin/sed -i 's/your_domain/$domain_name$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
+            /bin/sed -i 's/your_domain/$domain_id$/' /opt/all-in-one/srv/salt/dynamiccluster/dynamiccluster.yaml
             /usr/bin/qmgr -c 'create queue default'
             /usr/bin/qmgr -c 'set queue default queue_type = Execution'
             /usr/bin/qmgr -c 'set queue default resources_default.walltime = 9000:00:00'
@@ -134,11 +134,8 @@ resources:
             $key_name$: { get_param: key_name }
             $worker_image$: { get_param: worker_image }
             $worker_type$: { get_param: worker_type }
-            $domain_name$: { getparam: domain }
-            
-
+            $domain_id$: { get_param: domain_id }
 outputs:
-
     instance_ip:
         description: The IP address of the deployed head node instance
         value: { get_attr: [server, first_address] }
