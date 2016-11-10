@@ -131,10 +131,10 @@ resources:
             /usr/bin/qmgr -c 'set server default_queue = default'
           params:
             $security_group$: { get_resource: dynamic_cluster_sg }
-            $key_name$: {get_param: key_name}
-            $worker_image$: {get_param: worker_image}
-            $worker_type$: {get_param: worker_type}
-            $domain_name$: {getparam: domain}
+            $key_name$: { get_param: key_name }
+            $worker_image$: { get_param: worker_image }
+            $worker_type$: { get_param: worker_type }
+            $domain_name$: { getparam: domain }
             
 
 outputs:
