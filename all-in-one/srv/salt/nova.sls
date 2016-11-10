@@ -13,10 +13,10 @@ pip:
     - require:
       - pkg: compiler.packages
 
-python-novaclient:
+openstacksdk:
   cmd:
     - run
-    - name: pip install python-novaclient
-    - unless: pip freeze|grep -q python-novaclient
+    - name: pip install openstacksdk
+    - unless: pip freeze|grep -q openstacksdk
     - require:
       - cmd: pip
