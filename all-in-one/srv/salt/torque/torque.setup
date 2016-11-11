@@ -26,7 +26,7 @@ fi
 
 if [ "$2" = "" ] ; then
   # obtain name obtained from reverse lookup of ip address
-  HOSTNAME=`hostname`
+  HOSTNAME=`hostname -f`
 else
   HOSTNAME=$2
 fi

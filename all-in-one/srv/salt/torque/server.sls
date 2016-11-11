@@ -19,6 +19,7 @@ setup torque server:
     - user: root
     - shell: /bin/bash
     - creates: /var/lib/torque/server_priv/serverdb
+    - args: root
 
 trqauthd:
   service.running:
