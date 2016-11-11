@@ -14,10 +14,10 @@ extend:
         }
 
 setup torque server:
-  cmd.run:
-    - name: salt://torque/torque.setup
-    - cwd: /
-    - stateful: True
+  cmd.script:
+    - source: salt://torque/torque.setup
+    - user: root
+    - shell: /bin/bash
     - creates: /var/lib/torque/server_priv/serverdb
 
 trqauthd:
