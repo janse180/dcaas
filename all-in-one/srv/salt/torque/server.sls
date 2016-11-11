@@ -12,7 +12,14 @@ extend:
       - context: {
         server_name: "{{ grains['fqdn'] }}"
         }
-  
+
+setup torque server:
+  cmd.run:
+    - name: salt://torque/torque.setup
+    - cwd: /
+    - stateful: True
+    - creates: /var/lib/torque/server_priv/serverdb
+
 trqauthd:
   service.running:
     - enable: True
